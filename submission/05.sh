@@ -6,3 +6,5 @@ transaction="0200000001d54e767769b3c3b8707115f748c88f7323def5b78147628aa071fdcf2
 # THE UNLOCKING SCRIPT IS LOCATED IN THE VIN OF THE DECODED TRANSACTION SCRIPTSIG OBJECT ON THE HEX KEY
 
 UNLOCKING_SCRIPT=$(bitcoin-cli -regtest -named decoderawtransaction hexstring=$transaction | jq -r '.vin[0].scriptSig.hex')
+
+echo $UNLOCKING_SCRIPT
