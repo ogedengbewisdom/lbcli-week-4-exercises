@@ -4,6 +4,6 @@ transaction="0200000001d54e767769b3c3b8707115f748c88f7323def5b78147628aa071fdcf2
 # THE LOCKING SCRIPT IS SCRIPT WHICH IS RUN TO LOCK THE UTXOs TO THE PUBLIC KEY OF THE RECIPIENT ADDRESS
 # LOCKING SCRIPT IS LOCATED IN THE VOUTS OF THE DECODED TRANSACTION SCRIPTPUBKEY OBJECT ON THE HEX KEY
 
-LOCKING_SCRIPT=$(bitcoin-cli -regtest -named decoderawtransaction hexstring=$transaction | jq -r '.vout[0].scriptpubkey.hex')
+LOCKING_SCRIPT=$(bitcoin-cli -regtest -named decoderawtransaction hexstring=$transaction | jq -r '.vout[0].scriptPubKey.hex')
 
 echo $LOCKING_SCRIPT
