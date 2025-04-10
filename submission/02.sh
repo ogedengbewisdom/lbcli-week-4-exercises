@@ -16,8 +16,9 @@ AMOUNT=0.2
 DECODED_TRANSACTION=$(bitcoin-cli -regtest -named decoderawtransaction hexstring=$transaction)
 
 UTXO_TXID=$(echo $DECODED_TRANSACTION | jq -r '.txid')
-UTXO_VOUT=$(echo $DECODED_TRANSACTION | jq -r '.vout[0].n')
+UTXO_VOUT_1=$(echo $DECODED_TRANSACTION | jq -r '.vout[0].n')
+UTXO_VOUT_2=$(echo $DECODED_TRANSACTION | jq -r '.vout[1].n')
 
-RAW_TRANSACTION_HEX=$(bitcoin-cli -regtest -named createrawtransaction inputs='''[ { "txid": "'$UTXO_TXID'", "vout": '$UTXO_VOUT' } ]''' outputs='''{"'$RECIPIENT_ADDRESS'": '$AMOUNT' }''' locktime=$BLOCK_HEIGHT)
+RAW_TRANSACTION_HEX=$(bitcoin-cli -regtest -named createrawtransaction inputs='''[ { "txid": "'$UTXO_TXID'", "vout": '$UTXO_VOUT_1' }, { "txid": "'$UTXO_TXID'", "vout": '$UTXO_VOUT_2' } ]''' outputs='''{"'$RECIPIENT_ADDRESS'": '$AMOUNT' }''' locktime=$BLOCK_HEIGHT)
 
 echo $RAW_TRANSACTION_HEX
